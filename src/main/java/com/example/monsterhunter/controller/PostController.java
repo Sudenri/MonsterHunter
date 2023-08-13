@@ -1,7 +1,9 @@
 package com.example.monsterhunter.controller;
 
 import com.example.monsterhunter.domain.EquipmentList;
+import com.example.monsterhunter.domain.SkillList;
 import com.example.monsterhunter.repository.EquipmentListRepository;
+import com.example.monsterhunter.repository.SkillListRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +20,22 @@ public class PostController {
 
     private final EquipmentListRepository equipmentListRepository;
 
+    private final SkillListRepository skillListRepository;
+
+
+    //TODO Fix this mapping
     @PostMapping(value = "/addEquipment", consumes = "application/json", produces = "application/json")
-    public EquipmentList createEntry(@RequestBody EquipmentList newEntry) {
-        return equipmentListRepository.save(newEntry);
+    public void createEntry(@RequestBody EquipmentList newEquipment, SkillList newSkill) {
+        EquipmentList newEquipmentToAdd = new EquipmentList();
+        SkillList newSkillToAdd = new SkillList();
+
+        newEquipmentToAdd.setName(newEquipment.getName());
+        newSkillToAdd.setName((newSkill.getName()));
+        newSkillToAdd.setSkill(newSkill.getSkill());
+        newSkillToAdd.setSkillLevel(newSkill.getSkillLevel());
+
+        equipmentListRepository.save(newEquipmentToAdd);
+        skillListRepository.save(newSkillToAdd);
+        return;
     }
 }

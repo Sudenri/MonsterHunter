@@ -9,9 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface EquipmentListRepository extends JpaRepository<EquipmentList, String> {
     EquipmentList findByName(String name);
 
-    List<EquipmentList> findBySkill(String skill);
-
-    //EquipmentList saveUpdateEntry(EquipmentList newEquipment);
-
 
 }

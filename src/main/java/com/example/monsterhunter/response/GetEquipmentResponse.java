@@ -1,6 +1,8 @@
 package com.example.monsterhunter.response;
 
 import com.example.monsterhunter.domain.EquipmentList;
+import com.example.monsterhunter.domain.SkillList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +18,7 @@ public class GetEquipmentResponse {
 
     private Long slots;
 
-    private String skill;
-
-    private Long skillLevel;
+    private List<SkillList> skillList;
 
     private Long defensePoints;
 
@@ -32,14 +32,13 @@ public class GetEquipmentResponse {
 
     private Long dragonRes;
 
-    public static GetEquipmentResponse from(EquipmentList equipmentList){
+    public static GetEquipmentResponse from(EquipmentList equipmentList, List<SkillList> skillList){
         GetEquipmentResponse getEquipmentResponse = new GetEquipmentResponse();
 
         getEquipmentResponse.setName(equipmentList.getName());
         getEquipmentResponse.setType(equipmentList.getType());
         getEquipmentResponse.setSlots(equipmentList.getSlots());
-        getEquipmentResponse.setSkill(equipmentList.getSkill());
-        getEquipmentResponse.setSkillLevel(equipmentList.getSkillLevel());
+        getEquipmentResponse.setSkillList(skillList);
         getEquipmentResponse.setDefensePoints(equipmentList.getDefensePoints());
         getEquipmentResponse.setFireRes(equipmentList.getFireRes());
         getEquipmentResponse.setWaterRes(equipmentList.getWaterRes());

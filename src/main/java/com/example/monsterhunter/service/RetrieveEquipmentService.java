@@ -1,13 +1,12 @@
 package com.example.monsterhunter.service;
 
 import com.example.monsterhunter.domain.EquipmentList;
+import com.example.monsterhunter.domain.SkillList;
 import com.example.monsterhunter.repository.EquipmentListRepository;
+import com.example.monsterhunter.repository.SkillListRepository;
 import com.example.monsterhunter.response.GetEquipmentResponse;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,27 +15,35 @@ import org.springframework.stereotype.Service;
 public class RetrieveEquipmentService {
 
     private final EquipmentListRepository equipmentListRepository;
+    private final SkillListRepository skillListRepository;
 
-    public RetrieveEquipmentService(EquipmentListRepository equipmentListRepository){
+    public RetrieveEquipmentService(EquipmentListRepository equipmentListRepository,
+                                    SkillListRepository skillListRepository) {
         this.equipmentListRepository = equipmentListRepository;
+        this.skillListRepository = skillListRepository;
     }
 
-    public GetEquipmentResponse getEquipmentByName(String name){
+    public GetEquipmentResponse getEquipmentByName(String name) {
         EquipmentList equipmentList = equipmentListRepository.findByName(name);
-        GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(equipmentList);
+        List<SkillList> skillList = skillListRepository.findByName(equipmentList.getName());
+        GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(equipmentList, skillList);
         return getEquipmentResponse;
     }
 
     public List<GetEquipmentResponse> getEquipmentBySkill(String skill){
-        List<EquipmentList> equipmentList = equipmentListRepository.findBySkill(skill);
-
+        List<SkillList> skillList = skillListRepository.findBySkill(skill);
         List<GetEquipmentResponse> response = new ArrayList<>();
-        for (EquipmentList equipment:equipmentList) {
-            GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(equipment);
+        for(SkillList individualEquip: skillList) {
+            EquipmentList equipmentList = equipmentListRepository.findByName(individualEquip.getName());
+            List<SkillList> temp1 = skillListRepository.findByName(equipmentList.getName());
+            GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(equipmentList, temp1);
             response.add(getEquipmentResponse);
         }
-
-//        response.stream().sorted().collect(Collectors.toList());
+        /*List<GetEquipmentResponse> response = new ArrayList<>();
+        for (List<SkillList> skills:skillList) {
+            GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(null, skills);
+            response.add(getEquipmentResponse);
+        }*/
         return response;
     }
 }
