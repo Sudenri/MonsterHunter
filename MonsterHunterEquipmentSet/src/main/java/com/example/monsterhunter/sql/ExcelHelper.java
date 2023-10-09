@@ -58,50 +58,20 @@ public class ExcelHelper {
                     Cell currentCell = cellsInRow.next();
 
                     switch (cellIdx) {
-                        case 0:
-                            equipmentList.setName(currentCell.getStringCellValue());
-                            break;
-
-                        case 1:
-                            equipmentList.setType(currentCell.getStringCellValue());
-                            break;
-
-                        case 2:
-                            equipmentList.setSlots((long) currentCell.getNumericCellValue());
-                            break;
-
-                        case 3:
-                            equipmentList.setSkill(currentCell.getStringCellValue());
-                            break;
-                        case 4:
-                            equipmentList.setSkillLevel((long) currentCell.getNumericCellValue());
-                            break;
-                        case 5:
-                            equipmentList.setDefensePoints((long) currentCell.getNumericCellValue());
-                            break;
-                        case 6:
-                            equipmentList.setFireRes((long) currentCell.getNumericCellValue());
-                            break;
-                        case 7:
-                            equipmentList.setWaterRes((long) currentCell.getNumericCellValue());
-                            break;
-                        case 8:
-                            equipmentList.setLightningRes((long) currentCell.getNumericCellValue());
-                            break;
-                        case 9:
-                            equipmentList.setIceRes((long) currentCell.getNumericCellValue());
-                            break;
-                        case 10:
-                            equipmentList.setDragonRes((long) currentCell.getNumericCellValue());
-                            break;
-
-                        default:
-                            break;
+                        case 0 -> equipmentList.setName(currentCell.getStringCellValue());
+                        case 1 -> equipmentList.setType(currentCell.getStringCellValue());
+                        case 2 -> equipmentList.setSlots((long) currentCell.getNumericCellValue());
+                        case 3 -> equipmentList.setSkill(currentCell.getStringCellValue());
+                        case 4 -> equipmentList.setSkillLevel((long) currentCell.getNumericCellValue());
+                        case 5 -> equipmentList.setDefensePoints((long) currentCell.getNumericCellValue());
+                        case 6 -> equipmentList.setFireRes((long) currentCell.getNumericCellValue());
+                        case 7 -> equipmentList.setWaterRes((long) currentCell.getNumericCellValue());
+                        case 8 -> equipmentList.setLightningRes((long) currentCell.getNumericCellValue());
+                        case 9 -> equipmentList.setIceRes((long) currentCell.getNumericCellValue());
+                        case 10 -> equipmentList.setDragonRes((long) currentCell.getNumericCellValue());
                     }
-
                     cellIdx++;
                 }
-
                 equipmentLists.add(equipmentList);
             }
 
