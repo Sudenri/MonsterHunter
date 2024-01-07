@@ -5,6 +5,8 @@ import com.example.monsterhunter.response.ResponseMessage;
 import com.example.monsterhunter.service.ExcelService;
 import com.example.monsterhunter.sql.ExcelHelper;
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +18,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@Slf4j
 @RequestMapping("/private/v1/monsterhunter")
 
 public class ExcelController {
     @Autowired
     ExcelService fileService;
 
+    //Uploads the Excel file to database
     @PostMapping("/upload")
+    //TODO Update Excel file to include Slots level
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
         if (ExcelHelper.hasExcelFormat(file)) {
             try {
                 fileService.save(file);
-
-                message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                message = "Uploaded the file successfully: {} " + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
             } catch (Exception e) {
                 message = "Could not upload the file: " + file.getOriginalFilename() + "!";
