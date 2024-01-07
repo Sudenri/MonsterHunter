@@ -2,15 +2,14 @@ package com.example.monsterhunter.service;
 
 import com.example.monsterhunter.domain.EquipmentList;
 import com.example.monsterhunter.repository.EquipmentListRepository;
-import com.example.monsterhunter.response.GetEquipmentResponse;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.monsterhunter.response.EquipmentResponse;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+//This service is related for the Get controller to retrieve singular pieces of data
 @Service
 @Slf4j
 public class RetrieveEquipmentService {
@@ -21,23 +20,30 @@ public class RetrieveEquipmentService {
         this.equipmentListRepository = equipmentListRepository;
     }
 
-    public GetEquipmentResponse getEquipmentByName(String name){
+    public EquipmentResponse getEquipmentByName(String name){
         EquipmentList equipmentList = equipmentListRepository.findByName(name);
-        GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(equipmentList);
-        return getEquipmentResponse;
+        EquipmentResponse equipmentResponse = EquipmentResponse.from(equipmentList);
+        return equipmentResponse;
     }
 
-    public List<GetEquipmentResponse> getEquipmentBySkill(String skill){
+    public List<EquipmentResponse> getEquipmentBySkill(String skill){
         List<EquipmentList> equipmentList = equipmentListRepository.findBySkill(skill);
 
-        List<GetEquipmentResponse> response = new ArrayList<>();
+        List<EquipmentResponse> response = new ArrayList<>();
         for (EquipmentList equipment:equipmentList) {
-            GetEquipmentResponse getEquipmentResponse = GetEquipmentResponse.from(equipment);
-            response.add(getEquipmentResponse);
+            EquipmentResponse equipmentResponse = EquipmentResponse.from(equipment);
+            response.add(equipmentResponse);
         }
-
-//        response.stream().sorted().collect(Collectors.toList());
         return response;
+    }
+
+    public List<EquipmentResponse> getAllEquipment(){
+        List<EquipmentList> allEquipmentList = equipmentListRepository.findAll();
+        List<EquipmentResponse> allEquipmentResponse = new ArrayList<>();
+        for (EquipmentList allEquipment : allEquipmentList){
+            allEquipmentResponse.add(EquipmentResponse.from(allEquipment));
+        }
+        return allEquipmentResponse;
     }
 }
 
