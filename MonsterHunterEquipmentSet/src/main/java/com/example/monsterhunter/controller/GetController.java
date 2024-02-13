@@ -7,6 +7,9 @@ import com.example.monsterhunter.service.CalculateService;
 import com.example.monsterhunter.service.ExcelService;
 import com.example.monsterhunter.service.RetrieveEquipmentService;
 import java.util.List;
+import java.util.Map;
+
+import com.example.monsterhunter.vo.CalculationRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,8 +39,10 @@ public class GetController {
     private static final String template = "Calculating the best set now";
 
     @GetMapping("/calculation")
-    public List<EquipmentResponse> response(@RequestParam List<String> desiredSkills) { //Don't use @RequestParam, need body
-        return pipelineWorkflow.process(desiredSkills);
+    public List<EquipmentResponse> response(@RequestParam Map<String, Integer> desiredSkills) { //Don't use @RequestParam, need body
+        CalculationRequest calculationRequest = new CalculationRequest();
+        calculationRequest.setDesiredSkills(desiredSkills);
+        return pipelineWorkflow.process(calculationRequest);
     }
 
     @GetMapping(value = "/getEquipmentByName", produces = MediaType.APPLICATION_JSON_VALUE)

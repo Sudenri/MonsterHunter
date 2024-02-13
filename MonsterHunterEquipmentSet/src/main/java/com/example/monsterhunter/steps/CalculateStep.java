@@ -2,18 +2,21 @@ package com.example.monsterhunter.steps;
 
 import com.example.monsterhunter.response.EquipmentResponse;
 import com.example.monsterhunter.service.CalculateService;
+import com.example.monsterhunter.vo.CalculationRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public class CalculateStep {
+@Component
+@RequiredArgsConstructor
+public class CalculateStep implements Step<CalculationRequest, List<EquipmentResponse>> {
 
-    private final CalculateService calculateService;
+    public CalculateService calculateService;
 
-    public CalculateStep (CalculateService calculateService) {
-        this.calculateService = calculateService;
+    public List<EquipmentResponse> process(CalculationRequest eligibleEquipment){
+        return calculateService.calculate(eligibleEquipment);
     }
 
-    public List<EquipmentResponse> process(List<EquipmentResponse> eligibleEquipment, List<String>desiredSkills){
-        return calculateService.calculate(eligibleEquipment, desiredSkills);
-    }
+
 }

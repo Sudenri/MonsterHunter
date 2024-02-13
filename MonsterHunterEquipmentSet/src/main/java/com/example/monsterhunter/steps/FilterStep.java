@@ -2,18 +2,17 @@ package com.example.monsterhunter.steps;
 
 import com.example.monsterhunter.response.EquipmentResponse;
 import com.example.monsterhunter.service.FilterService;
+import com.example.monsterhunter.vo.CalculationRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
+@Component
+@RequiredArgsConstructor
+public class FilterStep implements Step<CalculationRequest, CalculationRequest>{
+    public FilterService filterService;
 
-public class FilterStep {
-    private final FilterService filterService;
-
-    public FilterStep (FilterService filterService){
-        this.filterService = filterService;
-    }
-
-    public List<EquipmentResponse> process(List<String> desiredSkills, List<EquipmentResponse> allEquipmentResponse){
-        return filterService.filter(desiredSkills, allEquipmentResponse);
+    public CalculationRequest process(CalculationRequest calculationRequest){
+        return filterService.filter(calculationRequest);
     }
 
 }
