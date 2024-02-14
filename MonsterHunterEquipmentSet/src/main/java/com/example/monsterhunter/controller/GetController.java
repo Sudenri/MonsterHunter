@@ -1,9 +1,7 @@
 package com.example.monsterhunter.controller;
 
-import com.example.monsterhunter.domain.EquipmentList;
 import com.example.monsterhunter.pipeline.PipelineWorkflow;
 import com.example.monsterhunter.response.EquipmentResponse;
-import com.example.monsterhunter.service.CalculateService;
 import com.example.monsterhunter.service.ExcelService;
 import com.example.monsterhunter.service.RetrieveEquipmentService;
 import java.util.List;
@@ -38,7 +36,7 @@ public class GetController {
 
     private static final String template = "Calculating the best set now";
 
-    @GetMapping("/calculation")
+    @GetMapping("/calculate")
     public List<EquipmentResponse> response(@RequestParam Map<String, Integer> desiredSkills) { //Don't use @RequestParam, need body
         CalculationRequest calculationRequest = new CalculationRequest();
         calculationRequest.setDesiredSkills(desiredSkills);

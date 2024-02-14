@@ -22,20 +22,19 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class PipelineWorkflow {
 
-    public RetrieveEquipmentStep retrieveEquipmentStep;
+    private final RetrieveEquipmentStep retrieveEquipmentStep;
 
-    public FilterStep filterStep;
+    private final FilterStep filterStep;
 
-    public CalculateStep calculateStep;
+    private final CalculateStep calculateStep;
 
 
     public List<EquipmentResponse> process(CalculationRequest calculationRequest) {
-        Pipeline<CalculationRequest, List<EquipmentResponse>> pipeline = new Pipeline<>(new RetrieveEquipmentStep())
-                .pipe(new FilterStep())
-                .pipe(new CalculateStep());
+        Pipeline<CalculationRequest, List<EquipmentResponse>> pipeline = new Pipeline<>(retrieveEquipmentStep)
+                .pipe(filterStep)
+                .pipe(calculateStep);
         log.info("This is the pipeline {}", pipeline);
         System.out.println(pipeline.execute(calculationRequest));
         return null;

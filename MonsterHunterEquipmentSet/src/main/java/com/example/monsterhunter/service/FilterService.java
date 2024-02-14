@@ -13,7 +13,7 @@ public class FilterService {
 
     public CalculationRequest filter(CalculationRequest calculationRequest){
         //Stream to filter out
-        log.info("This is the Filter Service");
+        log.info("This is the FilterService");
         List<EquipmentResponse> eligibleEquipment = null;
         return calculationRequest;
     }

@@ -19,7 +19,7 @@ public class RetrieveEquipmentService {
     private final EquipmentListRepository equipmentListRepository;
 
     public List<EquipmentResponse> getAllEquipment(){
-        log.info("This is the RetrieveEquipmentStep");
+        log.info("This is the RetrieveService");
         List<EquipmentList> allEquipmentList = equipmentListRepository.findAll();
         List<EquipmentResponse> allEquipmentResponse = new ArrayList<>();
         for (EquipmentList allEquipment : allEquipmentList){
