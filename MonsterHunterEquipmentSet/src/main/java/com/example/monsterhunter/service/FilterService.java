@@ -1,16 +1,20 @@
 package com.example.monsterhunter.service;
 
 import com.example.monsterhunter.response.EquipmentResponse;
+import com.example.monsterhunter.vo.CalculationRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class FilterService {
 
-    public List<EquipmentResponse> filter(List<String> desiredSkills, List<EquipmentResponse> allEquipmentResponse){
+    public CalculationRequest filter(CalculationRequest calculationRequest){
         //Stream to filter out
+        log.info("This is the FilterService");
         List<EquipmentResponse> eligibleEquipment = null;
-        return eligibleEquipment;
+        return calculationRequest;
     }
 }
